@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'cream': '#F8F3EB'
+        'cream': '#F8F3EB',
+        'polp-orange': '#FFAC33'
       }
     },
   },

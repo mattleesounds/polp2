@@ -2,10 +2,11 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AiOutlineMenu, AiOutlineClose, AiOutlineUpload } from 'react-icons/ai'
+import { MdAccountCircle } from 'react-icons/md'
 
 const NavBar = () => {
   return (
-    <div className="fixed h-16 w-full bg-white z-10">
+    <div className="fixed h-16 w-full bg-white z-10 top-0">
       <div className="max-w-[1240px] h-full m-auto flex justify-between items-center">
 
         {/* logo */}
@@ -28,9 +29,14 @@ const NavBar = () => {
         </div>
 
         {/* Menu */}
-        <button className="m-6">
-          <AiOutlineMenu size={20} />
-        </button>
+        <div className="m-0 h-full w-[90px] grid grid-cols-2">
+          <button className="m-2">
+            <AiOutlineMenu size={20} />
+          </button>
+          <button className="">
+            <MdAccountCircle size={30} />
+          </button>
+        </div>
       </div>
     </div>
   )
