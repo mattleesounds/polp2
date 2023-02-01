@@ -6,7 +6,7 @@ import { MdAccountCircle } from 'react-icons/md'
 
 const NavBar = () => {
   return (
-    <div className="fixed h-16 w-full bg-white z-10 top-0">
+    <div className="fixed h-16 max-h-16 w-full bg-white z-10 top-0">
       <div className="max-w-[1240px] h-full m-auto flex justify-between items-center">
 
         {/* logo */}

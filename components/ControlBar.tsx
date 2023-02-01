@@ -66,7 +66,7 @@ const ControlBar = ({}: Props): JSX.Element => {
       window.removeEventListener('mousemove', handleKnobMouseMove);
       window.removeEventListener('mouseup', handleKnobMouseUp);
     };
-  }, [startX, startProgress]);
+  }, [knobRef, startX, startProgress]);
   
   
   return (

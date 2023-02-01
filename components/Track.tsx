@@ -3,36 +3,69 @@ import { AiOutlinePause } from 'react-icons/ai'
 import Image from 'next/image'
 import {IoMdShareAlt } from 'react-icons/io'
 import { BiPlay, BiPause } from 'react-icons/bi'
-import { createRef } from 'react'
+import { TrackType } from '@/lib/types'
+import { useRef, useState, useEffect } from 'react'
 
+interface TrackProps {
+  /* 
+  audioRef: React.RefObject<HTMLAudioElement>;
+  
+  setCurrentTrack: React.Dispatch<React.SetStateAction<any>>; */
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  track: TrackType;
+  //currentTrack: TrackType;
+  playTrack: (track: TrackType) => void;
+  pauseTrack: () => void; 
+  //handlePlayPause: (title: string) => void;
+  //setCurrentTrack: React.Dispatch<React.SetStateAction<TrackType | null>>;
+}
 
-const Track = () => {
-  /* States */
-  const [isPlaying, setIsPlaying] = React.useState(false)
+const Track = ({ isPlaying, setIsPlaying, track, playTrack, pauseTrack }: TrackProps): JSX.Element =>  {
+  
 
-  /* References */
-  const audioPlayer = createRef<HTMLAudioElement>()
-
-  const togglePlayPause = () => {
+  /* const togglePlayPause = () => {
     setIsPlaying(!isPlaying)
     if(isPlaying) {
-      audioPlayer.current!.pause()
+      audioRef.current!.pause()
     } else {
-      audioPlayer.current!.play()
+      audioRef.current!.play()
     }
-  }
+  } */
+  const [currentTrack, setCurrentTrack] = useState<string | null>(null);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const handlePlayPause = (track: TrackType) => {
+    if (currentTrack === track.title) {
+      if (isPlaying) {
+        setIsPlaying(false);
+        audioRef.current?.pause();
+        pauseTrack();
+      } else {
+        setIsPlaying(true);
+        audioRef.current?.play();
+        playTrack(track);
+      }
+    } else {
+      setCurrentTrack(track.title);
+      setIsPlaying(true);
+      audioRef.current!.src = track.source;
+      audioRef.current?.play();
+      playTrack(track);
+    }
+  };
 
   return (
     <div className="w-[88%] left-[6%] h-36 bg-white flex m-3">
-      {/* Audio */}
-      <audio ref={audioPlayer} src="/song1.mp3" />
-
       {/* Art/Controls */}
       <div className="w-[30%] h-[69%] bg-slate-400 flex justify-center items-center">
-        <button onClick={togglePlayPause}>
+        <button onClick={() =>handlePlayPause(track)}>
           { isPlaying ? <BiPause size={60} /> : <BiPlay size={60}/> }
         </button>
       </div>
+
+      <audio ref={audioRef} />
 
       {/* Info/Progress */}
       <div className="flex-col w-[70%] h-full">
