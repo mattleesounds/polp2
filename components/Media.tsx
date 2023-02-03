@@ -27,8 +27,10 @@ const Media = (): JSX.Element =>  {
       if (audioElement) {
         if (audioElement.paused) {
           audioElement.play();
+          setIsPlaying(true)
         } else {
           audioElement.pause();
+          setIsPlaying(false)
         }
       }
     } else {
@@ -38,34 +40,18 @@ const Media = (): JSX.Element =>  {
       const audioElement = audioRefs.current.get(trackSource);
       if (audioElement) {
         audioElement.play();
+        setIsPlaying(true)
       }
       setCurrentTrack(trackSource);
     }
   };
 
-  /* const playTrack = (track: TrackType) => {
-    setCurrentTrack(track)
-    setIsPlaying(true)
-    audioRef.current!.src = track.source
-    audioRef.current!.play()
-  }
-
-  const pauseTrack = () => {
-    setIsPlaying(false)
-  } */
-
   return (
     <div>
       <Feed 
-          /* tracks={tracks}
-          
-          
-          audioRef={audioRef} */
           tracks={tracks}
           setIsPlaying={setIsPlaying}
           isPlaying={isPlaying}
-          /* playTrack={playTrack}
-          pauseTrack={pauseTrack} */
           currentTrack={currentTrack}
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}

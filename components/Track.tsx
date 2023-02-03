@@ -7,9 +7,6 @@ import { TrackType } from '@/lib/types'
 import { useRef, useState, useEffect } from 'react'
 
 interface TrackProps {
-  /* 
-  audioRef: React.RefObject<HTMLAudioElement>;
-  */
   setCurrentTrack: React.Dispatch<React.SetStateAction<any>>; 
   isPlaying: boolean;
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,9 +14,6 @@ interface TrackProps {
   currentTrack: string | null;
   handlePlayPause: (trackSource: string) => void;
   audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
-  //pauseTrack: () => void; 
-  //handlePlayPause: (title: string) => void;
-  //setCurrentTrack: React.Dispatch<React.SetStateAction<TrackType | null>>;
 }
 
 const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, currentTrack, setCurrentTrack }: TrackProps): JSX.Element =>  {
@@ -32,61 +26,12 @@ const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, cur
     }
   }, [audioRefs, track.source]);
 
-
-  /* const togglePlayPause = () => {
-    setIsPlaying(!isPlaying)
-    if(isPlaying) {
-      audioRef.current!.pause()
-    } else {
-      audioRef.current!.play()
-    }
-  } */
-  //const [currentTrack, setCurrentTrack] = useState<string | null>(null);
-
-
-
- /*  useEffect(() => {
-    if (currentTrack!.title === track.title) {
-      if (isPlaying) {
-        audioRef.current?.play();
-      } else {
-        audioRef.current?.pause();
-      }
-    } else {
-      setCurrentTrack(track.title);
-      audioRef.current!.src = track.source;
-      audioRef.current?.play();
-    }
-  }, [isPlaying, track, currentTrack, setCurrentTrack]); */
-
-  
-
- /*  const handlePlayPause = (track: TrackType) => {
-    if (currentTrack!.title === track.title) {
-      if (isPlaying) {
-        setIsPlaying(false);
-        audioRef.current?.pause();
-        pauseTrack();
-      } else {
-        setIsPlaying(true);
-        audioRef.current?.play();
-        playTrack(track);
-      }
-    } else {
-      setCurrentTrack(track);
-      setIsPlaying(true);
-      audioRef.current!.src = track.source;
-      audioRef.current?.play();
-      playTrack(track);
-    }
-  }; */
-
   return (
     <div className="w-[88%] left-[6%] h-36 bg-white flex m-3">
       {/* Art/Controls */}
       <div className="w-[30%] h-[69%] bg-slate-400 flex justify-center items-center">
         <button onClick={() =>handlePlayPause(track.source)}>
-          { currentTrack === track.source ? <BiPause size={60} /> : <BiPlay size={60}/> }
+          { isPlaying && track.source === currentTrack ? <BiPause size={60} /> : <BiPlay size={60}/> }
         </button>
       </div>
 

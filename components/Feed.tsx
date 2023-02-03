@@ -4,13 +4,10 @@ import { TrackType } from '@/lib/types'
 
 interface FeedProps {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  //audioRef: React.RefObject<HTMLAudioElement>;
   tracks: TrackType[];
   currentTrack: string | null;
   setCurrentTrack: React.Dispatch<React.SetStateAction<any>>; 
   isPlaying: boolean;
-  /* playTrack: (track: TrackType) => void;
-  pauseTrack: () => void; */
   handlePlayPause: (trackSource: string) => void;
   audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
 }
@@ -26,20 +23,12 @@ const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, 
           track={track}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
-          /* playTrack={playTrack}
-          pauseTrack={pauseTrack} */
           currentTrack={currentTrack}
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}
           audioRefs={audioRefs}
         />
       ))}
-      {/* <Track />
-      <Track />
-      <Track />
-      <Track />
-      <Track />
-      <Track /> */}
     </div>
   )
 }
