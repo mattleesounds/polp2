@@ -7,12 +7,9 @@ import ControlBar from '@/components/ControlBar'
 import { createRef, useState } from 'react'
 import Track from '@/components/Track'
 import { TrackType } from '@/lib/types'
+import Media from '@/components/Media'
 
 const inter = Inter({ subsets: ['latin'] })
-
-interface IndexProps {
-  tracks: TrackType[];
-}
 
 export default function Home() {
   /* Tracks */
@@ -20,32 +17,8 @@ export default function Home() {
   const track2:TrackType = {id: 2, name: "song2", source: "/song2.mp3"}
 
   const tracks:TrackType[] = [track1, track2] */
- 
-  /* States */
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [currentTrack, setCurrentTrack] = useState<TrackType>({
-    title: '',
-    artist: '',
-    source:''
-  });
 
-  /* References */
-  const audioRef = createRef<HTMLAudioElement>()
 
-  const playTrack = (track: TrackType) => {
-    setCurrentTrack(track);
-    setIsPlaying(true);
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-  };
-
-  const pauseTrack = () => {
-    setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
-  };
 
   return (
     <>
@@ -56,23 +29,9 @@ export default function Home() {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <main className="bg-cream h-screen">
-        {/* Audio */}
-        <audio ref={audioRef} src={currentTrack.source} />
-
         <NavBar />
         <PageTitle />
-        <Feed 
-          /* tracks={tracks}
-          currentTrack={currentTrack}
-          setCurrentTrack={setCurrentTrack}
-          
-          audioRef={audioRef} */
-          setIsPlaying={setIsPlaying}
-          isPlaying={isPlaying}
-          playTrack={playTrack}
-          pauseTrack={pauseTrack}
-        />
-        <ControlBar />
+        <Media />
       </main>
     </>
   )
