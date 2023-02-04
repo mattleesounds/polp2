@@ -84,9 +84,9 @@ const ControlBar = ({}: Props): JSX.Element => {
 
         {/* Controls */}
         <div className="flex justify-center align-items-top gap-x-6 w-1/2">
-          <BsFillSkipStartFill size={50} />
-          <GiPauseButton size={45} className="mt-[3px]"/>
-          <BsFillSkipEndFill size={50} />
+          <BsFillSkipStartFill size={40} />
+          <GiPauseButton size={35} className="mt-[3px]"/>
+          <BsFillSkipEndFill size={40} />
         </div>
        
         {/* % progress */}

@@ -14,17 +14,22 @@ interface TrackProps {
   currentTrack: string | null;
   handlePlayPause: (trackSource: string) => void;
   audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
+  duration: number;
+  setDuration: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, currentTrack, setCurrentTrack }: TrackProps): JSX.Element =>  {
+const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, currentTrack, setCurrentTrack, duration, setDuration }: TrackProps): JSX.Element =>  {
   
+  /* Ref */
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  /* Set audioRef in Map */
   useEffect(() => {
     if (audioRef.current) {
       audioRefs.current.set(track.source, audioRef.current);
+      setDuration(audioRef.current.duration)
     }
-  }, [audioRefs, track.source]);
+  }, [audioRefs, track.source, setDuration]);
 
   return (
     <div className="w-[88%] left-[6%] h-36 bg-white flex m-3">
@@ -35,9 +40,9 @@ const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, cur
         </button>
       </div>
 
+      {/* Audio */}
       <audio ref={audioRef} src={track.source} />
      
-
       {/* Info/Progress */}
       <div className="flex-col w-[70%] h-full">
         <div className="h-[60%]">
@@ -47,6 +52,9 @@ const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, cur
           <h3 className="p-2 pt-0 pb-1 text-lg">      
             {track.artist}
           </h3>
+          <h4>
+            {duration}
+          </h4>
         </div>
         <div className="h-[40%] flex justify-end mr-6 mt-0">
           <button className="h-12 w-24 bg-cream ml-[25px] border-polp-orange border-solid border-2 flex place-content-center items-center">

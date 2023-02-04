@@ -10,13 +10,15 @@ interface FeedProps {
   isPlaying: boolean;
   handlePlayPause: (trackSource: string) => void;
   audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
+  duration: number;
+  setDuration: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, setCurrentTrack, audioRefs }: FeedProps): JSX.Element =>  {
+const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, setCurrentTrack, audioRefs, duration, setDuration }: FeedProps): JSX.Element =>  {
   
 
   return (
-    <div className="flex flex-col place-items-center mb-2 bg-cream h-screen z-0 m-2">
+    <div className="flex flex-col place-items-center mb-2 bg-cream h-full z-0 m-2 pb-24">
       {tracks.map(track => (
         <Track
           key={track.title}
@@ -27,6 +29,8 @@ const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, 
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}
           audioRefs={audioRefs}
+          duration={duration}
+          setDuration={setDuration}
         />
       ))}
     </div>

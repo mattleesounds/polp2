@@ -5,6 +5,7 @@ import Feed from './Feed'
 import ControlBar from './ControlBar'
 
 const Media = (): JSX.Element =>  {
+  /* Tracks */
   const tracks: TrackType[] = [
     {
       title: '50 Ways to Leave Your Lover',
@@ -37,10 +38,18 @@ const Media = (): JSX.Element =>  {
       source: 'song6.mp3',
     }
   ];
+
+  /* States */
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
+  const [duration, setDuration] = useState(0);
+
+  /* Map of audioRefs */
   const audioRefs = useRef<Map<string, HTMLAudioElement>>(new Map());
 
+  
+
+  /* Play/Pause Function */
   const handlePlayPause = (trackSource: string) => {
     if (currentTrack === trackSource) {
       const audioElement = audioRefs.current.get(trackSource);
@@ -76,6 +85,8 @@ const Media = (): JSX.Element =>  {
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}
           audioRefs={audioRefs}
+          duration={duration}
+          setDuration={setDuration}
         />
       <ControlBar />
     </div>
