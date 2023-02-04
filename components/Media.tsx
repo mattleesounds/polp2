@@ -42,10 +42,10 @@ const Media = (): JSX.Element =>  {
   /* States */
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
-  const [duration, setDuration] = useState(0);
 
   /* Map of audioRefs */
   const audioRefs = useRef<Map<string, HTMLAudioElement>>(new Map());
+  const durRefs = useRef<Map<string, number>>(new Map());
 
   
 
@@ -85,10 +85,18 @@ const Media = (): JSX.Element =>  {
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}
           audioRefs={audioRefs}
-          duration={duration}
-          setDuration={setDuration}
+          durRefs={durRefs}
         />
-      <ControlBar />
+      <ControlBar 
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        currentTrack={currentTrack}
+        audioRefs={audioRefs}
+        setCurrentTrack={setCurrentTrack}
+        durRefs={durRefs}
+        handlePlayPause={handlePlayPause}
+        tracks={tracks}
+      />
     </div>
   )
 }

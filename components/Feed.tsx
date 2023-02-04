@@ -10,11 +10,10 @@ interface FeedProps {
   isPlaying: boolean;
   handlePlayPause: (trackSource: string) => void;
   audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
-  duration: number;
-  setDuration: React.Dispatch<React.SetStateAction<number>>;
+  durRefs: React.MutableRefObject<Map<string, number>>;
 }
 
-const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, setCurrentTrack, audioRefs, duration, setDuration }: FeedProps): JSX.Element =>  {
+const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, setCurrentTrack, audioRefs, durRefs }: FeedProps): JSX.Element =>  {
   
 
   return (
@@ -29,8 +28,7 @@ const Feed = ({ isPlaying, setIsPlaying, handlePlayPause, tracks, currentTrack, 
           setCurrentTrack={setCurrentTrack}
           handlePlayPause={handlePlayPause}
           audioRefs={audioRefs}
-          duration={duration}
-          setDuration={setDuration}
+          durRefs={durRefs}
         />
       ))}
     </div>

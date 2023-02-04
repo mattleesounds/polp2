@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect, createRef } from 'react'
 import { GiPauseButton, GiPlayButton } from 'react-icons/gi'
 import { BsFillSkipEndFill, BsFillSkipStartFill } from 'react-icons/bs'
+import { TrackType } from '@/lib/types'
 
 interface Props {}
 
@@ -15,11 +16,24 @@ interface KnobRef extends HTMLDivElement{
   parentElement: HTMLElement | null;
 }
 
-const ControlBar = ({}: Props): JSX.Element => {
+interface Props {
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  currentTrack: string | null;
+  audioRefs: React.MutableRefObject<Map<string, HTMLAudioElement>>;
+  setCurrentTrack: React.Dispatch<React.SetStateAction<any>>;
+  durRefs: React.MutableRefObject<Map<string, number>>;
+  handlePlayPause: (trackSource: string) => void;
+  tracks: TrackType[];
+}
+
+const ControlBar = ({ isPlaying, setIsPlaying, currentTrack, setCurrentTrack, audioRefs, durRefs, handlePlayPause, tracks }: Props): JSX.Element => {
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   /* const knobRef = useRef<KnobRef>({ current: null, parentElement: null }); */
   const knobRef = createRef<KnobRef>()
+
+  
 
   const handleTimeUpdate = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
     const progress = (event.currentTarget.currentTime / event.currentTarget.duration) * 100;
@@ -94,7 +108,7 @@ const ControlBar = ({}: Props): JSX.Element => {
 
         
         {/* Progress Bar */}
-        <div className="absolute w-[90%] left-[5%] h-2 bottom-2 bg-cream rounded cursor-pointer" onMouseDown={handleMouseDown}>
+        <div className="absolute w-[90%] left-[5%] h-1 bottom-2 bg-cream rounded cursor-pointer" onMouseDown={handleMouseDown}>
           <div className="h-full bg-black" style={{width:`${progress}%`}} ></div>
         </div>
         {/* Knob */}
