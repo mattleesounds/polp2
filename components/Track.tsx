@@ -42,10 +42,10 @@ const Track = ({ isPlaying, setIsPlaying, track, handlePlayPause, audioRefs, cur
       <div className="flex-col w-[70%] h-full">
         <div className="h-[60%]">
           <h2 className="p-2 text-xl">
-            Orange Song
+            {track.title}
           </h2>
           <h3 className="p-2 pt-0 pb-1 text-lg">      
-            Lil Citrus
+            {track.artist}
           </h3>
         </div>
         <div className="h-[40%] flex justify-end mr-6 mt-0">

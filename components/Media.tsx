@@ -15,6 +15,26 @@ const Media = (): JSX.Element =>  {
       title: 'So Fresh, So Clean',
       artist: 'Outkast',
       source: 'song2.mp3'
+    },
+    {
+      title: 'Prelude in E Minor',
+      artist: 'Chopin',
+      source: 'song3.mp3'
+    },
+    {
+      title: 'Giant Steps',
+      artist: 'John Coltrane',
+      source: 'song4.mp3'
+    },
+    {
+      title: 'Set You Free',
+      artist: 'The Black Keys',
+      source: 'song5.mp3',
+    },
+    {
+      title: 'Special Affair/Curse',
+      artist: 'The Internet',
+      source: 'song6.mp3',
     }
   ];
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
