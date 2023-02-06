@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useState, useRef, useEffect, createRef } from 'react'
 import { GiPauseButton, GiPlayButton } from 'react-icons/gi'
 import { BsFillSkipEndFill, BsFillSkipStartFill } from 'react-icons/bs'
@@ -29,11 +29,34 @@ interface Props {
 
 const ControlBar = ({ isPlaying, setIsPlaying, currentTrack, setCurrentTrack, audioRefs, durRefs, handlePlayPause, tracks }: Props): JSX.Element => {
   const [progress, setProgress] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  //const audioRef = useRef<HTMLAudioElement>(null);
   /* const knobRef = useRef<KnobRef>({ current: null, parentElement: null }); */
   const knobRef = createRef<KnobRef>()
 
-  
+  useEffect(() => {
+    const audioRefsArray = Array.from(audioRefs.current?.values());
+    const durRefsArray = Array.from(durRefs.current?.values());
+    const currentIndex = audioRefsArray.findIndex(ref => audioRefs.current.src === currentTrack);
+    const currentDur = durRefsArray[currentIndex];
+    const progress = (audioRefsArray[currentIndex].currentTime / currentDur) * 100;
+    setProgress(progress);
+  }
+  , [currentTrack, audioRefs, durRefs])
+
+  const handlePrevious = (trackSource: string) => {
+    const audioRefsArray = Array.from(audioRefs.current?.values());
+    
+    const currentIndex = audioRefsArray.findIndex(ref => audioRefs.current.src === currentTrack);
+    console.log(audioRefsArray[currentIndex - 1].src)
+    if (currentIndex > 0) {
+      const previousTrack = audioRefsArray[currentIndex - 1].src;
+      
+      setCurrentTrack(previousTrack);
+      //handlePlayPause(currentTrack);
+    }
+  };
+
+/* 
 
   const handleTimeUpdate = (event: React.SyntheticEvent<HTMLAudioElement, Event>) => {
     const progress = (event.currentTarget.currentTime / event.currentTarget.duration) * 100;
@@ -82,7 +105,7 @@ const ControlBar = ({ isPlaying, setIsPlaying, currentTrack, setCurrentTrack, au
     };
   }, [knobRef, startX, startProgress]);
   
-  
+   */
   return (
     <div className="fixed leading-none p-0 bottom-0 bg-white h-16 w-full">
       <div className="flex justify-center">
@@ -98,8 +121,14 @@ const ControlBar = ({ isPlaying, setIsPlaying, currentTrack, setCurrentTrack, au
 
         {/* Controls */}
         <div className="flex justify-center align-items-top gap-x-6 w-1/2">
-          <BsFillSkipStartFill size={40} />
-          <GiPauseButton size={35} className="mt-[3px]"/>
+          <button onClick={() => handlePrevious(currentTrack)}>
+            <BsFillSkipStartFill size={40} />
+          </button>
+
+          <button onClick={() => handlePlayPause(currentTrack!)} className="focus:outline-none">
+            { isPlaying ? <GiPauseButton size={35} className="mt-[3px]"/> : <GiPlayButton size={35} className="mt-[3px]"/> }
+          </button>
+
           <BsFillSkipEndFill size={40} />
         </div>
        
@@ -108,11 +137,11 @@ const ControlBar = ({ isPlaying, setIsPlaying, currentTrack, setCurrentTrack, au
 
         
         {/* Progress Bar */}
-        <div className="absolute w-[90%] left-[5%] h-1 bottom-2 bg-cream rounded cursor-pointer" onMouseDown={handleMouseDown}>
+        <div className="absolute w-[90%] left-[5%] h-1 bottom-2 bg-cream rounded cursor-pointer" /* onMouseDown={handleMouseDown} */>
           <div className="h-full bg-black" style={{width:`${progress}%`}} ></div>
         </div>
         {/* Knob */}
-        <div ref={knobRef} className="" onMouseDown={handleKnobMouseDown}></div>
+        <div ref={knobRef} className="" /* onMouseDown={handleKnobMouseDown} */></div>
       </div>
     </div>
   )
