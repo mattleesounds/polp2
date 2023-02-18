@@ -1,11 +1,7 @@
-import React from 'react'
-import { useSession, signIn, signOut } from "next-auth/react";
+import React from "react";
 
 const Auth = () => {
-  const [data: session, status: loading] = useSession()
-  return (
-    <div>Auth</div>
-  )
-}
+  return <div>Auth</div>;
+};
 
-export default Auth
+export default Auth;
