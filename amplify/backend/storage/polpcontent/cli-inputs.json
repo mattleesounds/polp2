@@ -1,0 +1,14 @@
+{
+  "resourceName": "polpcontent",
+  "policyUUID": "03a8ab2f",
+  "bucketName": "polp-media",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
