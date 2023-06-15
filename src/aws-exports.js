@@ -3,17 +3,17 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-2",
-    "aws_cognito_identity_pool_id": "us-east-2:25650b3f-ac42-4519-bf56-0922c9c8c875",
+    "aws_cognito_identity_pool_id": process.env.NEXT_PUBLIC_AWS_COGNITO_IDENTITY_POOL_ID,
     "aws_cognito_region": "us-east-2",
-    "aws_user_pools_id": "us-east-2_FpiogrBW5",
-    "aws_user_pools_web_client_id": "5f1poqc3g70dpfbqubsnv68fil",
+    "aws_user_pools_id": process.env.NEXT_PUBLIC_AWS_USER_POOLS_ID,
+    "aws_user_pools_web_client_id": process.env.NEXT_PUBLIC_AWS_USER_POOLS_WEB_CLIENT_ID,
     "oauth": {
         "domain": "polp-user-pool.auth.us-east-2.amazoncognito.com",
         "scope": ["email", "openid", "profile","aws.cognito.signin.user.admin"],
         "redirectSignIn": process.env.NEXT_PUBLIC_REDIRECT_SIGN_IN,
         "redirectSignOut": process.env.NEXT_PUBLIC_REDIRECT_SIGN_OUT,
         "responseType": 'code', // or 'token'
-        "googleClientId": "831411345265-1j4rnjeqp4r69pm7uegb60rmqrqkrn2b.apps.googleusercontent.com"
+        "googleClientId": process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       },
     "aws_cognito_username_attributes": [
         "EMAIL"
@@ -33,7 +33,7 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    "aws_user_files_s3_bucket": "polp-media124813-dev",
+    "aws_user_files_s3_bucket": process.env.NEXT_PUBLIC_AWS_USER_FILES_S3_BUCKET,
     "aws_user_files_s3_bucket_region": "us-east-2"
 };
 
